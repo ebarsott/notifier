@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-import notifier
-from notifier import notify
+from . import notifier
+from .notifier import notify, send_notification
 
-__all__ = ['notifier', 'notify']
-
+__all__ = ['notifier', 'notify', 'send_notification']
