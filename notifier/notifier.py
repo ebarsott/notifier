@@ -36,7 +36,6 @@ def notify(
     if not isinstance(to_email, (list, tuple)):
         to_email = [to_email, ]
     body = "%s\n" % text
-    body = "Time of exception: %s" % time.ctime()
     for kw in kwargs:
         body += "\t%s = %s\n" % (kw, kwargs[kw])
     msg = MIMEMultipart('alternative')
