@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
+import ConfigParser
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import os
 import smtplib
 import time
 
@@ -37,13 +39,34 @@ def send_notification(text, subject=None, to_email=None, cfg=None):
     s.quit()
 
 
+default_host = 'smtp.gmail.com'
+default_port = 587
+
+
+def load_config(filename="~/.notifier.ini"):
+    filename = os.path.expanduser(filename)
+    if not os.path.exists(filename):
+        return {}
+    cp = ConfigParser.SafeConfigParser()
+    cp.read(filename)
+    return dict(cp.items('notifier'))
+
+
 def notify(
-        text, subject, to_email, from_email,
-        password, host="smtp.gmail.com", port=587, **kwargs):
+        text, subject, to_email, from_email=None,
+        password=None, host=None, port=None, **kwargs):
+    cfg = load_config()
+    if from_email is None:
+        from_email = cfg['from_email']
+    if password is None:
+        password = cfg['password']
+    if host is None:
+        host = cfg.get('host', default_host)
+    if port is None:
+        port = cfg.get('port', default_port)
     if not isinstance(to_email, (list, tuple)):
         to_email = [to_email, ]
     body = "%s\n" % text
-    body = "Time of exception: %s" % time.ctime()
     for kw in kwargs:
         body += "\t%s = %s\n" % (kw, kwargs[kw])
     msg = MIMEMultipart('alternative')
