@@ -5,4 +5,13 @@ This is an installable simple email notifier.
 
 It can send a simple email with proper input arguments.
 
+It also allows for text message notifications with the proper
+formatting of the recepient email.
+
+Use sms gateway provided by mobile carrier:
+at&t:     number@mms.att.net
+t-mobile: number@tmomail.net
+verizon:  number@vtext.com
+sprint:   number@page.nextel.com
+
 The setup.py is from braingram/simple_setup
