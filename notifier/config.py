@@ -8,7 +8,7 @@ Read in a config file from the home directory that contains:
 - to_email (optional)
 """
 
-import ConfigParser
+import configparser
 import os
 
 
@@ -41,7 +41,7 @@ def validate_config(cfg):
 def load_config(fn=None):
     if fn is None:
         fn = os.path.abspath(os.path.expanduser(config_filename))
-    parser = ConfigParser.ConfigParser(defaults)
+    parser = configparser.ConfigParser(defaults)
     parser.read(fn)
     if not parser.has_section('notifier'):
         raise IOError("Invalid config[%s] missing notifier section" % fn)

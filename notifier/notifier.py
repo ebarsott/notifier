@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import ConfigParser
+import configparser
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
@@ -47,7 +47,7 @@ def load_config(filename="~/.notifier.ini"):
     filename = os.path.expanduser(filename)
     if not os.path.exists(filename):
         return {}
-    cp = ConfigParser.SafeConfigParser()
+    cp = configparser.SafeConfigParser()
     cp.read(filename)
     return dict(cp.items('notifier'))
 
